@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 
-from source.tasks.domain.entities import TaskId
+from source.tasks.domain.entities import TaskId, Task
 
 
 router = APIRouter()
 
 @router.post('/')
 async def create_task():
-    print(TaskId(value='605bf2d687d5cbb60108bde1'))
+    print(Task(title='Hola Mundo'))
     return {'test': 'hola'}

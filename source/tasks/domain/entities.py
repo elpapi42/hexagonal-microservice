@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import BaseModel, Field, validator
 from bson.objectid import ObjectId
@@ -35,7 +35,7 @@ class TaskStatus(str, Enum):
     CANCELED = 'canceled'
 
 class Task(BaseModel):
-    id:TaskId
+    id:Optional[TaskId] = Field(default_factory=TaskId)
     title:str
     description:Optional[str] = ''
     status:TaskStatus = TaskStatus.PENDING
