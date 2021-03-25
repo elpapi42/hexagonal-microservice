@@ -1,9 +1,33 @@
 version: "3.2"
 
 services:
-  rabbitmq:
+  rabbitmq-broker:
     image: rabbitmq:management
     ports:
       - 5672:5672
       - 15672:15672
-    container_name: rabbitmq
+    container_name: rabbitmq-broker
+
+  mongodb-database:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongo:/data/db
+    container_name: mongodb-database
+
+  hexagonal-microservice:
+    build: .
+    image: hexagonal-microservice
+    command: uvicorn --host 0.0.0.0 --port 8000 --reload --reload-dir source source.main:app
+    volumes:
+      - .:/microservice
+    ports:
+      - 8000:8000
+    depends_on:
+      - mongodb-database
+      - rabbitmq-broker
+    container_name: hexagonal-microservice
