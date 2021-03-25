@@ -1,5 +1,5 @@
 fastapi
 aio-pika
-odmantic
+motor
 python-dotenv
 uvicorn

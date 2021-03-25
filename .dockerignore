@@ -1,0 +1,6 @@
+/data
+/.env.example
+/docker-compose.yml
+/Dockerfile
+/README.md
+/.vscode
